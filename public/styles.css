@@ -1,0 +1,159 @@
+@import url('https://fonts.googleapis.com/css2?family=Major+Mono+Display&family=Poppins:wght@100&family=Space+Mono&family=Ubuntu:wght@300&display=swap');
+
+:root {
+    --primary-color: #183661;
+    --secondary-color: rgb(28, 75, 130);
+    --accent-color: rgb(221, 107, 77);
+    --background-color: #e2e0d6;
+}
+
+* {
+    font-family: 'Ubuntu';
+    transition: ease-in-out 0.1s;
+    user-select: none;
+}
+
+body {
+    background-color: var(--secondary-color);
+}
+
+nav {
+    text-align: center;
+    margin: 0;
+    padding: 10px 2px;
+}
+
+#logo a {
+    text-decoration: none;
+    color: var(--accent-color);
+    font-size: 3em;
+    text-shadow: 2px 10px rgba(0, 0, 0, 0.1);
+    font-weight: 1000;
+}
+
+#logo {
+    display: block;
+}
+
+.content {
+    background-color: var(--primary-color);
+    border-radius: 3px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+    max-width: 600px;
+
+
+
+}
+
+#chap-list {
+    list-style: none;
+    padding: 0;
+    display: none;
+    flex-direction: column;
+}
+
+.chap-li {
+    padding: 10px;
+    border: 2px solid var(--secondary-color);
+    margin: 5px 20px;
+    border-radius: 3px;
+    color: white;
+}
+
+.chap-li:hover {
+    text-decoration: underline;
+    cursor: pointer;
+    background-color: rgba(28, 75, 130,0.3);
+
+}
+
+#chap-list h2 {
+    padding: 20px;
+    color: var(--accent-color);
+}
+
+#chap-list h2:hover {
+    cursor: pointer;
+}
+
+.button {
+    background-color: var(--accent-color);
+    margin-top: 20px;
+    border-radius: 3px;
+    padding: 10px 30px;
+    color: var(--secondary-color);
+    border: none;
+    font-size: 1em;
+    font-weight: 600;
+    box-shadow: 0px 4px 0px 0px rgba(0, 0, 0, 0.2);
+    width: 150px;
+}
+
+.button:hover {
+    color: var(--primary-color);
+    cursor: pointer;
+    background-color: rgb(209, 103, 77);
+}
+
+.button:active {
+    box-shadow: none;
+}
+
+
+#auth-container {
+    background-color: rgba(24, 54, 97);
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    min-width: 500px;
+    min-height: 200px;
+    justify-content: center;
+    border: none;
+    box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.4);
+    color: var(--background-color);
+}
+
+#auth-container[open]{
+    display: flex;
+}
+#auth-container[open] nav{
+    filter: blur(500px);
+}
+
+#auth-container button{
+    margin: 20px auto;
+}
+
+
+#auth-container input{
+    font-size: 1.2em;
+    text-align: center;
+    width: 50%;
+    outline: none;
+    border: 2px solid var(--primary-color);
+    border-radius: 3px;
+    background-color: var(--background-color);
+    font-family: monospace;
+    padding:5px 10px;
+    
+}
+
+#auth-container input:focus{
+    background-color: white;
+    border: 2px solid black;
+}
+
+#google-svg{
+    fill: var(--primary-color);
+}
+
+.alert{
+    background-color: rgba(125, 255, 4, 0.1);
+    display: none ;
+    padding: 8px;
+    border-radius: 5px;
+    border: 2px solid rgba(125, 255, 4, 0.2);
+}

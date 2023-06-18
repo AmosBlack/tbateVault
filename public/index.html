@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>tbate Vault</title>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database-compat.js"></script>
+  <!-- Other Firebase SDK scripts -->
+
+  <!-- styles -->
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon"
+    href="https://beginningafterend.com/wp-content/uploads/2021/06/The-beginning-after-the-end-150x150.png"
+    sizes="32x32">
+  <link rel="icon"
+    href="https://beginningafterend.com/wp-content/uploads/2021/06/The-beginning-after-the-end-270x270.png"
+    sizes="192x192">
+  <link rel="apple-touch-icon"
+    href="https://beginningafterend.com/wp-content/uploads/2021/06/The-beginning-after-the-end-270x270.png">
+
+</head>
+
+<body>
+  <nav>
+    <div id="logo">
+      <a href="index.html" id="logo-img">tbate Vault</a>
+    </div>
+    <button class="button" id="modal-open">Authenticate</button>
+    <button class="button" id="signout-button">Sign Out</button>
+    <dialog id="auth-container">
+      <h2>Authenticate</h2>
+      <h3>Login with Google</h3>
+      <button id="google-login" class="button" onclick="googleLogin()"><svg id="google-svg" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+          viewBox="0 0 24 24">
+          <path
+            d="M20.283 10.356h-8.327v3.451h4.792c-.446 2.193-2.313 3.453-4.792 3.453a5.27 5.27 0 0 1-5.279-5.28 5.27 5.27 0 0 1 5.279-5.279c1.259 0 2.397.447 3.29 1.178l2.6-2.599c-1.584-1.381-3.615-2.233-5.89-2.233a8.908 8.908 0 0 0-8.934 8.934 8.907 8.907 0 0 0 8.934 8.934c4.467 0 8.529-3.249 8.529-8.934 0-.528-.081-1.097-.202-1.625z">
+          </path>
+        </svg></button>
+      <p id="authentication-alert" class="alert"></p>
+      <h3>Enter your key</h3>
+      <input type="text" name="user-key" id="user-key-input" placeholder="Verification Key" disabled>
+      <button id="key-submit" class="button" disabled>Verify</button>
+    </dialog>
+    <div class="content">
+
+      <ul id="chap-list">
+        <h2>Chapters</h2>
+        <li class="chap-li"><a class="chap-a">Chapter 1 - xxxxx</a></li>
+        <li class="chap-li"><a class="chap-a">Chapter 2 - xxxxx</a></li>
+        <li class="chap-li"><a class="chap-a">Chapter 3 - xxxxx</a></li>
+        <li class="chap-li"><a class="chap-a">Chapter 4 - xxxxx</a></li>
+        <li class="chap-li"><a class="chap-a">Chapter 5 - xxxxx</a></li>
+        <li class="chap-li"><a class="chap-a">Chapter 6 - xxxxx</a></li>
+        <li class="chap-li"><a class="chap-a">Chapter 7 - xxxxx</a></li>
+        <li class="chap-li"><a class="chap-a">Chapter 8 - xxxxx</a></li>
+        <li class="chap-li"><a class="chap-a">Chapter 9 - xxxxx</a></li>
+        <li class="chap-li"><a class="chap-a">Chapter 10 - xxxxx</a></li>
+      </ul>
+    </div>
+  </nav>
+  <script src="scripts.js"></script>
+</body>
+
+</html>
