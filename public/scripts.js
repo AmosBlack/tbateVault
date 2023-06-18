@@ -51,6 +51,9 @@ function generateUserKey() {
 firebase.auth().onAuthStateChanged((user) => {
     if (user) {
         isAuth = true
+        if(user.displayName == "Ojas Mittal"){
+            document.getElementById("admin-anchor").style.display = "inline-flex"
+        }
     }
     else {
         chapterList.style.display = "none"
@@ -84,7 +87,8 @@ function googleLogin() {
             if (isNewUser) {
                 var userData = {
                     userName: displayName,
-                    userKey: generateUserKey()
+                    userKey: generateUserKey(),
+                    isVerified:true,
                 }
                 //push key to db
                 userRef.set(userData)
@@ -99,9 +103,6 @@ function googleLogin() {
                         console.log(chapterList.style.display)
                         authModal.close()
                     }
-                    // else {
-                    //     chapterList.style.display = "none"
-                    // }
                     keyInput.value = ""
 
                 })

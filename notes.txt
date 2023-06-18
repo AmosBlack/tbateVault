@@ -1,3 +1,4 @@
--reusable login system
+-on reload, if verified auto load chaps
 -adminpage login + access to keys of all
+-adminpage dom table
 -backend 
