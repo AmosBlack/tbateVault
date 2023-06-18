@@ -21,35 +21,51 @@ const firebaseConfig = {
 
 const app = firebase.initializeApp(firebaseConfig)
 const DB = firebase.database()
-let key,uid
+let key, uid
 //check if auth is done
 let isAuth = false
-let isVerified = false
 
 //auth-modal-function
 
 //button event listener
 modalButton.addEventListener("click", () => {
     authModal.showModal()
+    alertLogin.style.display = "none"
 })
 
-function generateUserKey(){
+
+
+function generateUserKey() {
     const keyLength = 10
     const str = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
     const strLength = str.length
     key = ""
-    for(var i = 0; i < keyLength; i++){
-        var num =  Math.floor(Math.random() * (strLength))
+    for (var i = 0; i < keyLength; i++) {
+        var num = Math.floor(Math.random() * (strLength))
         key += str[num]
     }
     return key
 }
 
+//display chap-list based on authstate
+firebase.auth().onAuthStateChanged((user) => {
+    if (user) {
+        isAuth = true
+    }
+    else {
+        chapterList.style.display = "none"
+        isAuth = false
+        console.log(chapterList.style.display)
+
+
+    }
+})
+
 function googleLogin() {
     const provider = new firebase.auth.GoogleAuthProvider()
-
     firebase.auth().signInWithPopup(provider)
         .then(result => {
+            console.log(isAuth + "is auth")
             //login data
             const isNewUser = result.additionalUserInfo.isNewUser
             const user = result.user
@@ -65,7 +81,7 @@ function googleLogin() {
             keyInputSubmit.disabled = false
             //create key for new users
             var userRef = DB.ref(`users/${uid}`)
-            if(isNewUser) {
+            if (isNewUser) {
                 var userData = {
                     userName: displayName,
                     userKey: generateUserKey()
@@ -74,18 +90,20 @@ function googleLogin() {
                 userRef.set(userData)
             }
 
-            keyInputSubmit.addEventListener("click",()=>{
-                userRef.child("userKey").once("value").then((snapshot)=>{
+            keyInputSubmit.addEventListener("click", () => {
+                userRef.child("userKey").once("value").then((snapshot) => {
                     var userKey = snapshot.val()
-                    console.log(userKey,keyInput.value)
-                    if(keyInput.value == userKey && isAuth == true){
+                    if (keyInput.value == userKey && isAuth == true) {
+                        console.log(chapterList.style.display)
                         chapterList.style.display = "flex"
-                        isVerified = true
+                        console.log(chapterList.style.display)
+                        authModal.close()
+                    }
+                    // else {
+                    //     chapterList.style.display = "none"
+                    // }
+                    keyInput.value = ""
 
-                    }
-                    else{
-                        chapterList.style.display = "none"
-                    }
                 })
             })
 
@@ -99,20 +117,10 @@ function googleLogin() {
 
 }
 
-//display chap-list based on authstate
-firebase.auth().onAuthStateChanged((user)=>{
-    if(user){
-        isAuth = true   
-    }
-    else{
-        chapterList.style.display = "none"
-        isAuth = false
-        isVerified = false
 
-    }
-})
 
 //signout button
-document.getElementById("signout-button").addEventListener("click",()=>{
-    firebase.auth().signOut()
+document.getElementById("signout-button").addEventListener("click", () => {
+    firebase.auth().signOut(console.log("auth" + isAuth))
 })
+
