@@ -1,26 +1,14 @@
 //dom vars
-
 let modalButton = document.getElementById("modal-open")
+let signoutButton = document.getElementById("signout-button")
 let authModal = document.getElementById("auth-container")
 let alertLogin = document.getElementById("authentication-alert")
+let alertKey = document.getElementById("key-alert")
 let keyInput = document.getElementById("user-key-input")
 let keyInputSubmit = document.getElementById("key-submit")
 let chapterList = document.getElementById("chap-list")
 
 
-//firebase-initialization
-const firebaseConfig = {
-    apiKey: "AIzaSyAndTqSX-EfgG3URZDGGVf_uB-K3hSpVlw",
-    authDomain: "tbatevault.firebaseapp.com",
-    databaseURL: "https://tbatevault-default-rtdb.asia-southeast1.firebasedatabase.app",
-    projectId: "tbatevault",
-    storageBucket: "tbatevault.appspot.com",
-    messagingSenderId: "601887097241",
-    appId: "1:601887097241:web:c82ab39ff0ad0e4f9d1308"
-};
-
-const app = firebase.initializeApp(firebaseConfig)
-const DB = firebase.database()
 let key, uid
 //check if auth is done
 let isAuth = false
@@ -29,13 +17,19 @@ let isAuth = false
 
 //button event listener
 modalButton.addEventListener("click", () => {
+    //open login page
     authModal.showModal()
+    //disable key input
+    disableKeyEntry()
+    //hide alerts
     alertLogin.style.display = "none"
+    alertKey.style.display = "none"
 })
 
 
 
 function generateUserKey() {
+    //generate an unique key of 10 chars
     const keyLength = 10
     const str = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
     const strLength = str.length
@@ -47,73 +41,78 @@ function generateUserKey() {
     return key
 }
 
-//display chap-list based on authstate
-firebase.auth().onAuthStateChanged((user) => {
+//change auth-boolean based on Auth State
+AUTH.onAuthStateChanged((user) => {
     if (user) {
         isAuth = true
+        uid = user.uid
+        displayChapterList()
         if(user.displayName == "Ojas Mittal"){
-            document.getElementById("admin-anchor").style.display = "inline-flex"
+            document.getElementById("admin-anchor").style.display = "inherit"
         }
     }
     else {
-        chapterList.style.display = "none"
         isAuth = false
-        console.log(chapterList.style.display)
-
-
+        chapterList.style.display = "none"
+        document.getElementById("admin-anchor").style.display = "none"
     }
 })
 
+function userSetup(result){
+    //login data
+    const isNewUser = result.additionalUserInfo.isNewUser
+    const user = result.user
+    uid = user.uid
+    const displayName = user.displayName
+    //update login alert module
+    alertUser(alertLogin, "Auth Successful", "block", "rgba(125, 255, 4, 0.2)", "rgba(125, 255, 4, 0.3)")
+    //enable key inputs
+    keyInput.disabled = false
+    keyInputSubmit.disabled = false
+    //create key for new users
+    var userRef = DB.ref(`users/${uid}`)
+    if (isNewUser) {
+        //userdata object (pushed into DB)
+        var userData = {
+            userName: displayName,
+            userKey: generateUserKey(),
+            isVerified: true,
+        }
+        //push key to db
+        userRef.set(userData)
+    }
+
+    keyInputSubmit.addEventListener("click", () => {
+        //retrieve client-key from DB
+        userRef.child("userKey").once("value").then((snapshot) => {
+            //client key
+            var userKey = snapshot.val()
+            //client key vs input key check + google auth
+            if (keyInput.value == userKey) {
+                displayChapterList()
+                userRef.child("isVerified").set(true)
+                authModal.close()
+            }
+            else {
+                userRef.child("isVerified").set(false)
+                alertUser(alertKey, "Wrong Key", "block", "rgba(200,0,0,0.2)", "rgba(200,0,0,0.3)")
+            }
+            keyInput.value = ""
+
+        })
+    })
+}
+
 function googleLogin() {
     const provider = new firebase.auth.GoogleAuthProvider()
-    firebase.auth().signInWithPopup(provider)
+    AUTH.signInWithPopup(provider)
         .then(result => {
-            console.log(isAuth + "is auth")
-            //login data
-            const isNewUser = result.additionalUserInfo.isNewUser
-            const user = result.user
-            uid = user.uid
-            const displayName = user.displayName
-            //update login alert module
-            alertLogin.textContent = 'Auth Successful'
-            alertLogin.style.display = "block"
-            alertLogin.style.backgroundColor = "rgba(125, 255, 4, 0.2)"
-            alertLogin.style.borderColor = "rgba(125, 255, 4, 0.3)"
-            //enable key inputs
-            keyInput.disabled = false
-            keyInputSubmit.disabled = false
-            //create key for new users
-            var userRef = DB.ref(`users/${uid}`)
-            if (isNewUser) {
-                var userData = {
-                    userName: displayName,
-                    userKey: generateUserKey(),
-                    isVerified:true,
-                }
-                //push key to db
-                userRef.set(userData)
-            }
-
-            keyInputSubmit.addEventListener("click", () => {
-                userRef.child("userKey").once("value").then((snapshot) => {
-                    var userKey = snapshot.val()
-                    if (keyInput.value == userKey && isAuth == true) {
-                        console.log(chapterList.style.display)
-                        chapterList.style.display = "flex"
-                        console.log(chapterList.style.display)
-                        authModal.close()
-                    }
-                    keyInput.value = ""
-
-                })
-            })
+            userSetup(result)
 
         })
         .catch(error => {
-            alertLogin.textContent = 'Auth Failed'
-            alertLogin.style.display = "block"
-            alertLogin.style.backgroundColor = "rgba(200,0,0,0.2)"
-            alertLogin.style.borderColor = "rgba(200,0,0,0.3)"
+            //alert failure of google auth
+            alertUser(alertLogin, "Auth Failed", "block", "rgba(200,0,0,0.2)", "rgba(200,0,0,0.3)")
         })
 
 }
@@ -121,7 +120,34 @@ function googleLogin() {
 
 
 //signout button
-document.getElementById("signout-button").addEventListener("click", () => {
-    firebase.auth().signOut(console.log("auth" + isAuth))
+signoutButton.addEventListener("click", (user) => {
+    //signout
+    AUTH.signOut()
+    DB.ref(`users/${uid}/isVerified`).set(false)
+
 })
 
+function displayChapterList() {
+    let isVerified
+    DB.ref(`users/${uid}/isVerified`).once("value").then((snapshot) => {
+        isVerified = snapshot.val() 
+        if (isVerified) {
+            chapterList.style.display = "flex"
+        }
+    })
+
+
+}
+
+function alertUser(alert, text, display, bgColor, borderColor) {
+    alert.textContent = text
+    alert.style.display = display
+    alert.style.backgroundColor = bgColor
+    alert.style.borderColor = borderColor
+}
+
+function disableKeyEntry() {
+    keyInput.disabled = true
+    keyInputSubmit.disabled = true
+    keyInput.placeho
+}

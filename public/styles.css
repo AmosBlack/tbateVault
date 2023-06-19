@@ -130,7 +130,6 @@ nav {
 
 
 #auth-container input{
-    font-size: 1.2em;
     text-align: center;
     width: 50%;
     outline: none;
@@ -139,6 +138,7 @@ nav {
     background-color: var(--background-color);
     font-family: monospace;
     padding:5px 10px;
+    font-size: 1.3em;
     
 }
 
@@ -152,14 +152,116 @@ nav {
 }
 
 .alert{
-    background-color: rgba(125, 255, 4, 0.1);
-    display: none ;
-    padding: 8px;
+    display: none;
+    padding: 10px 20px;
     border-radius: 5px;
-    border: 2px solid rgba(125, 255, 4, 0.2);
+    transition: cubic-bezier(0.075, 0.82, 0.165, 1) 0.2s;
 }
 
 #admin-anchor{
     display: none;
     text-align: center;
+    margin: 10px auto;
+}
+
+::placeholder{
+    color: rgb(59, 57, 57);
+    font-weight: lighter;
+}
+
+/* admin page styling  */
+table {
+    border-collapse: collapse;
+    user-select: all;
+    margin: 10px auto;
+    display: none;
+}
+
+
+td,
+th {
+    color: white;
+    border: 2px solid #000000;
+    text-align: left;
+    padding: 10px;
+    width: 50%;
+    font-family: 'Courier New', Courier, monospace;
+
+}
+
+
+
+#header{
+    background-color: var(--background-color);
+}
+#header th{
+    text-align: center;
+    color: black;
+
+}
+
+tr:nth-child(even){
+    background-color: #1f3c64;
+}
+
+tr:nth-child(odd){
+    background-color: rgba(30, 65, 114,0.5);
+}
+
+h1 {
+    color: white;
+    font-size: 2.5em;
+    cursor: pointer;
+    text-align: center;
+    font-family: 'Courier New', Courier, monospace;
+
+}
+
+#access-container input {
+    outline: none;
+    max-width: 200px;
+    background-color: var(--background-color);
+    color: black;
+    font-weight: 900;
+    padding: 5px 10px;
+    margin: 5px auto;
+    font-size: 1.2em;
+    border: 2px solid black;
+    font-family: 'Courier New', Courier, monospace;
+
+
+}
+
+#access-container button{
+    background-color: var(--accent-color);
+    padding: 5px 10px;
+    border: 2px solid var(--primary-color);
+    transition: ease 0s;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 1em;
+    width: 100px;
+    text-align: center;
+
+}
+
+#access-container button:hover{
+    background-color: salmon;
+    cursor: pointer;
+    
+}
+
+#table-container, #access-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: 'Courier New', Courier, monospace;
+
+}
+
+th{
+    cursor: pointer;
+}
+
+#admin-exit{
+    display: none;
 }
