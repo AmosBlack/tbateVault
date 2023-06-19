@@ -2,7 +2,9 @@
 //chap-text :$("#chapterText")[0].innerText
 //chap-links :$("#cm1 >tb- li > a")
 
-fetch("https://lnreader.org/the-beginning-after-the-end-535558")
+fetch("https://lnreader.org/the-beginning-after-the-end-535558",{
+    mode:'no-cors'
+})
     .then(response => response.text())
     .then(html => {
         var parser = new DOMParser();

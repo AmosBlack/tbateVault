@@ -47,8 +47,11 @@ AUTH.onAuthStateChanged((user) => {
         isAuth = true
         uid = user.uid
         displayChapterList()
-        if(user.displayName == "Ojas Mittal" || user.displayName == "big stinker"){
+        if (user.displayName == "Ojas Mittal" || user.displayName == "big stinker" || user.displayName == "sandro nozadze" || user.displayName == "Amos Black") {
             document.getElementById("admin-anchor").style.display = "inherit"
+        }
+        else {
+            document.getElementById("admin-anchor").style.display = "none"
         }
     }
     else {
@@ -58,7 +61,7 @@ AUTH.onAuthStateChanged((user) => {
     }
 })
 
-function userSetup(result){
+function userSetup(result) {
     //login data
     const isNewUser = result.additionalUserInfo.isNewUser
     const user = result.user
@@ -76,8 +79,7 @@ function userSetup(result){
         var userData = {
             userName: displayName,
             userKey: generateUserKey(),
-            userIP:getClientIp(),
-            isVerified: true,
+            isVerified: false,
         }
         //push key to db
         userRef.set(userData)
@@ -85,7 +87,7 @@ function userSetup(result){
 
     keyInputSubmit.addEventListener("click", () => {
         //retrieve client-key from DB
-        userRef.child("userKey").once("value").then((snapshot) => {
+        DB.ref(`users/${uid}`).child("userKey").once("value").then((snapshot) => {
             //client key
             var userKey = snapshot.val()
             //client key vs input key check + google auth
@@ -105,6 +107,7 @@ function userSetup(result){
 }
 
 function googleLogin() {
+
     const provider = new firebase.auth.GoogleAuthProvider()
     AUTH.signInWithPopup(provider)
         .then(result => {
@@ -125,13 +128,14 @@ signoutButton.addEventListener("click", (user) => {
     //signout
     AUTH.signOut()
     DB.ref(`users/${uid}/isVerified`).set(false)
+    uid = null
 
 })
 
 function displayChapterList() {
     let isVerified
     DB.ref(`users/${uid}/isVerified`).once("value").then((snapshot) => {
-        isVerified = snapshot.val() 
+        isVerified = snapshot.val()
         if (isVerified) {
             chapterList.style.display = "flex"
         }
@@ -150,13 +154,5 @@ function alertUser(alert, text, display, bgColor, borderColor) {
 function disableKeyEntry() {
     keyInput.disabled = true
     keyInputSubmit.disabled = true
-    keyInput.placeho
 }
 
-async function getClientIp() {
-    const { ip } = await fetch('https://api.ipify.org?format=json', { method: 'GET' })
-        .then(res => res.json())
-        .catch(error => console.error(error));
-    
-    return ip || "0.0.0.0";
-}
