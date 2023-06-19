@@ -47,7 +47,7 @@ AUTH.onAuthStateChanged((user) => {
         isAuth = true
         uid = user.uid
         displayChapterList()
-        if(user.displayName == "Ojas Mittal"){
+        if(user.displayName == "Ojas Mittal" || user.displayName == "big stinker"){
             document.getElementById("admin-anchor").style.display = "inherit"
         }
     }
@@ -76,6 +76,7 @@ function userSetup(result){
         var userData = {
             userName: displayName,
             userKey: generateUserKey(),
+            userIP:getClientIp(),
             isVerified: true,
         }
         //push key to db
@@ -150,4 +151,12 @@ function disableKeyEntry() {
     keyInput.disabled = true
     keyInputSubmit.disabled = true
     keyInput.placeho
+}
+
+async function getClientIp() {
+    const { ip } = await fetch('https://api.ipify.org?format=json', { method: 'GET' })
+        .then(res => res.json())
+        .catch(error => console.error(error));
+    
+    return ip || "0.0.0.0";
 }
