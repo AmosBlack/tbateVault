@@ -81,6 +81,7 @@ nav {
 
 .button {
     background-color: var(--accent-color);
+    margin: 3px auto;
     margin-top: 20px;
     border-radius: 3px;
     padding: 10px 30px;
@@ -102,28 +103,31 @@ nav {
 .button:active {
     box-shadow: none;
 }
-
-
 #auth-container {
+    margin: 2px auto;
     background-color: rgba(24, 54, 97);
     display: none;
-    flex-direction: column;
     align-items: center;
-    min-width: 500px;
     min-height: 200px;
     justify-content: center;
     border: none;
     box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.4);
     color: var(--background-color);
-}
-
-#auth-container[open]{
+  }
+  
+  @media screen and (max-width: 600px) {
+    /* Adjust styles for screens with a maximum width of 600px */
+    #auth-container {
+      min-height: 150px;
+    }
+  }
+  
+  #auth-container[open] {
     display: flex;
-}
-#auth-container[open] nav{
-    filter: blur(500px);
-}
-
+    flex-direction: column;
+  }
+  
+  
 #auth-container button{
     margin: 20px auto;
 }
@@ -136,7 +140,6 @@ nav {
     border: 2px solid var(--primary-color);
     border-radius: 3px;
     background-color: var(--background-color);
-    font-family: monospace;
     padding:5px 10px;
     font-size: 1.3em;
     
@@ -265,3 +268,124 @@ th{
 #admin-exit{
     display: none;
 }
+
+.chapter-modal{
+    background-color: var(--secondary-color);    
+    width: 75vmax;
+    height: 75vmax;
+    border:none;
+    color: white;
+    font-size: 0.8em;
+}
+.chapter-modal h1{
+    font-family: 'Ubuntu';
+}
+
+.chapter-modal button{
+    padding: 5px 10px;
+    margin: 10px 10px;
+}
+
+.cross{
+    position: fixed;
+    top: 5vh;
+    width: fit-content;
+    text-align: center;
+    right: 5vmax;
+    color: black;
+    background-color: none;
+    border:none;
+    box-shadow: none;
+    border-radius: 100%;
+}
+
+.cross:hover{
+    color: rgb(39, 38, 38);
+}
+
+.previous, .next {
+    position: fixed;
+    top: 93vh;
+}
+
+.previous{
+    left: 10vh;
+}
+
+.next{
+    right: 10vh;
+}
+
+/*dialog styling*/
+dialog[open] {
+
+    animation: show-dialog 0.5s ease normal;
+}
+
+dialog.hide {
+    animation: hide-dialog 0.2s ease normal;
+}
+
+dialog::backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, .5);
+    animation: none;
+}
+dialog[open]::backdrop {
+    animation: show-backdrop 0.5s ease 0.2s normal;
+}
+dialog.hide::backdrop {
+    animation: hide-backdrop 0.5s ease 0.2s normal;
+}
+@keyframes show-dialog {
+    from {
+        opacity: 0;
+        transform: translateY(-100%);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(5%);
+    }
+}
+@keyframes hide-dialog{
+    to {
+        opacity: 0;
+        transform: translateY(-100%);
+    }
+}
+
+@keyframes show-backdrop {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+@keyframes hide-backdrop{
+    to {
+        opacity: 0;
+    }
+}
+
+/*scrollbar*/
+/* width */
+::scrollbar {
+    width: 20px;
+  }
+  
+  /* Track */
+  ::scrollbar-track {
+    box-shadow: inset 0 0 5px grey;
+    border-radius: 10px;
+  }
+  
+  /* Handle */
+  ::scrollbar-thumb {
+    background: red;
+    border-radius: 10px;
+  }
