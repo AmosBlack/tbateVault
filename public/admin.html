@@ -23,22 +23,29 @@
 </head>
 
 <body>
-    <h1>tbate Vault Admin</h1>
-    <div id="access-container">
-        <a href="index.html"     style="color:black">Back to home</a>
-        <input type="text" name="admin-pwd" id="admin-pwd" placeholder="admin-pwd">
-        <button id="admin-click">Access</button>
-        <button id="admin-exit">Close</button>
-    </div>
-    <div id="table-container">
-        <h2>User-Key Table</h2>
-        <table id="users-table">
-            
-            <tbody id="tbody">
-
-            </tbody>
-        </table>
-    </div>   
+    <div id="loading-overlay">
+        <div class="ball"></div>
+      </div>    
+      <script src="anim.js"></script>
+    <nav>
+        <h1>tbate Vault Admin</h1>
+        <div id="access-container">
+            <a href="index.html"     style="color:black">Back to home</a>
+            <input type="text" name="admin-pwd" id="admin-pwd" placeholder="admin-pwd">
+            <button id="admin-click">Access</button>
+            <button id="admin-exit">Close</button>
+        </div>
+        <div id="table-container">
+            <h2>User-Key Table</h2>
+            <table id="users-table">
+                
+                <tbody id="tbody">
+    
+                </tbody>
+            </table>
+        </div>   
+    </nav>
+ 
     <script>
         //firebase-initializationk
         const firebaseConfig = {

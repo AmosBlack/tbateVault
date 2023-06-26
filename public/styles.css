@@ -23,10 +23,14 @@ body::before {
     content: "";
     position: absolute;
     top: 0;
+    margin: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: url('https://preview.redd.it/a7nminnt9e6b1.png?width=941&format=png&auto=webp&v=enabled&s=d58a5a29fe2595a481c054871caf7d342f0972d5');    opacity: 0.5; /* Adjust the opacity value for the body */
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-image: url('https://images-ext-1.discordapp.net/external/-U4Dv5nxTOcvudxTRA2BtIBAdLT4oSg7FVxWW6e4O5k/https/astolfo.wants-to-cum-in.me/content/cdn/vESNyWrcvDPx/3eilwb.png?width=939&height=529');   
+     opacity: 0.5; /* Adjust the opacity value for the body */
 }
 
 nav {
@@ -36,6 +40,8 @@ nav {
     padding: 10px 2px;
     position: relative;
     z-index: 1;
+    height: 100vh;
+    color: white;
 }
 
 
@@ -199,11 +205,11 @@ table {
 td,
 th {
     color: white;
-    border: 2px solid #000000;
+    border: 2px solid var(--primary-color);
     text-align: left;
     padding: 10px;
     width: 50%;
-    font-family: 'Courier New', Courier, monospace;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif ;
 
 }
 
@@ -214,16 +220,16 @@ th {
 }
 #header th{
     text-align: center;
-    color: black;
+    color: white;
 
 }
 
 tr:nth-child(even){
-    background-color: #1f3c64;
+    background-color: #1f2064;
 }
 
 tr:nth-child(odd){
-    background-color: rgba(30, 65, 114,0.5);
+    background-color: rgba(30, 38, 114, 0.5);
 }
 
 h1 {
@@ -244,7 +250,7 @@ h1 {
     padding: 5px 10px;
     margin: 5px auto;
     font-size: 1.2em;
-    border: 2px solid black;
+    border: 2px solid var(--accent-color);
     font-family: 'Courier New', Courier, monospace;
 
 
@@ -272,7 +278,7 @@ h1 {
     display: flex;
     flex-direction: column;
     align-items: center;
-    font-family: 'Courier New', Courier, monospace;
+    font-family: 'Arial'
 
 }
 
@@ -408,7 +414,40 @@ dialog.hide::backdrop {
     background-color: var(--primary-color);
     border-radius: 6px;
   }
+  /* Funky loading animation */
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-80px); }
+  }
   
+  #loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #362d61;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 1;
+    transition: opacity 0.5s ease-in-out;
+  }
   
-
+  .ball {
+    position: relative;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: #ffffff;
+    animation: bounce 1s infinite ease-in-out;
+    animation-delay: 0.2s;
+  }
+  
+  .fade-out {
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.5s ease-in-out;
+  }
   
