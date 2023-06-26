@@ -1,8 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Major+Mono+Display&family=Poppins:wght@100&family=Space+Mono&family=Ubuntu:wght@300&display=swap');
 
 :root {
-    --primary-color: #183661;
-    --secondary-color: rgb(28, 75, 130);
+    --primary-color: #2A2F4F;
+    --secondary-color: #10175a;
     --accent-color: rgb(221, 107, 77);
     --background-color: #e2e0d6;
 }
@@ -14,14 +14,30 @@
 }
 
 body {
-    background-color: var(--secondary-color);
+    position: relative;
+    margin: 0;
+    background-color: #000000;
+}
+
+body::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('https://preview.redd.it/a7nminnt9e6b1.png?width=941&format=png&auto=webp&v=enabled&s=d58a5a29fe2595a481c054871caf7d342f0972d5');    opacity: 0.5; /* Adjust the opacity value for the body */
 }
 
 nav {
     text-align: center;
+    opacity: 1; /* Adjust the opacity value for the nav */
     margin: 0;
     padding: 10px 2px;
+    position: relative;
+    z-index: 1;
 }
+
 
 #logo a {
     text-decoration: none;
@@ -55,17 +71,18 @@ nav {
   .chap-li {
     padding: 10px;
     width: 20%;
-    border: 2px solid var(--secondary-color);
+    background-color: rgba(48, 28, 95, 0.5);
     margin: 5px 10px;
     border-radius: 3px;
     color: white;
+    border: 2px solid var(--secondary-color);
   }
   
 
 .chap-li:hover {
     cursor: pointer;
-    background-color: rgba(28, 75, 130,0.3);
-
+    background-color: var(--secondary-color);
+    border-color: var(--accent-color);
 }
 
 #chap-list h2 {
@@ -102,8 +119,8 @@ nav {
     box-shadow: none;
 }
 #auth-container {
-    margin: 2px auto;
-    background-color: rgba(24, 54, 97);
+    margin: 15vh auto;
+    background-color: var(--secondary-color);
     display: none;
     align-items: center;
     min-height: 200px;

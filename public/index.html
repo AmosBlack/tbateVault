@@ -24,16 +24,16 @@
 </head>
 
 <body>
+  
   <nav>
     <div id="logo">
       <a href="index.html" id="logo-img">tbate Vault</a>
     </div>
-    <button class="button" id="modal-open">Authenticate</button>
-    <button class="button" id="signout-button">Sign Out</button>
-    <a href="admin.html" class="button" id="admin-anchor" target="blank">ADMIN</a>
-
-
-
+    <div class="right-aligned">
+      <button class="button" id="modal-open">Authenticate</button>
+      <button class="button" id="signout-button">Sign Out</button>
+      <a href="admin.html" class="button" id="admin-anchor" target="blank">ADMIN</a>
+    </div>
 
     <dialog id="auth-container">
       <h2>Authenticate</h2>
@@ -52,7 +52,7 @@
     </dialog>
     <div class="content">
       <ul id="chap-list">
-          <!-- <h2>Chapters</h2>
+        <!-- <h2>Chapters</h2>
           <li class="chap-li"><a class="chap-a">Chapter 1 - xxxxx</a></li>
           <li class="chap-li"><a class="chap-a">Chapter 2 - xxxxx</a></li>
           <li class="chap-li"><a class="chap-a">Chapter 3 - xxxxx</a></li>
@@ -63,7 +63,7 @@
       </ul>
     </div>
   </nav>
-  <script>  
+  <script>
     //firebase-initializationk
     const firebaseConfig = {
       apiKey: "AIzaSyAndTqSX-EfgG3URZDGGVf_uB-K3hSpVlw",

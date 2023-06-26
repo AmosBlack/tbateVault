@@ -95,17 +95,19 @@ function createChapterModal(chapNumber) {
 
 async function chapterListSetup() {
   return new Promise((resolve, reject) => {
+    //get num of chapters from db
     firebase.database().ref('chapters-count').once("value") 
       .then((snapshot) => {
         chapterCount = snapshot.val()
         chaptersList.innerHTML = ""
         // <li class="chap-li"><a class="chap-a">Chapter 1 - xxxxx</a></li>
+        //create li elements for each chapter
         for (var i = 0; i < snapshot.val(); i++) {
           var li = document.createElement("li")
           li.classList.add('chap-li')
           var a = document.createElement('a')
           a.classList.add("chap-a")
-          a.innerHTML = `Chapter ${i}`
+          a.innerHTML = `Chapter ${i+1}`
           li.appendChild(a)
           chaptersList.appendChild(li)
         }
