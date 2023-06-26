@@ -2,7 +2,7 @@
 let chaptersList = document.getElementById("chap-list")
 
 let chaptersCollection
-
+let chapterCount
 async function initializeChapterList() {
   await chapterListSetup();
   chaptersCollection = document.getElementsByClassName('chap-li')
@@ -73,7 +73,7 @@ function createChapterModal(chapNumber) {
       chapterNext.classList.add("next")
       chapterNext.textContent = "Next";
       //current hardcoded length- to fix
-      if (chapNumber >= 7) {
+      if (chapNumber >= chapterCount) {
         chapterNext.style.display = "None"
       }
       //go to next chapter
@@ -95,8 +95,10 @@ function createChapterModal(chapNumber) {
 
 async function chapterListSetup() {
   return new Promise((resolve, reject) => {
-    firebase.database().ref('chapters-count').once("value")
+    firebase.database().ref('chapters-count').once("value") 
       .then((snapshot) => {
+        chapterCount = snapshot.val()
+        chaptersList.innerHTML = ""
         // <li class="chap-li"><a class="chap-a">Chapter 1 - xxxxx</a></li>
         for (var i = 0; i < snapshot.val(); i++) {
           var li = document.createElement("li")

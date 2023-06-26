@@ -27,7 +27,7 @@ nav {
     text-decoration: none;
     color: var(--accent-color);
     font-size: 3em;
-    text-shadow: 2px 10px rgba(0, 0, 0, 0.1);
+    text-shadow: 2px 2px rgba(0, 0, 0, 0.1);
     font-weight: 1000;
 }
 
@@ -42,29 +42,27 @@ nav {
     display: flex;
     flex-direction: column;
     margin-top: 20px;
-    max-width: 600px;
-
-
-
+    width: 70vmax;
 }
-
 #chap-list {
     list-style: none;
     padding: 0;
-    display: none;
-    flex-direction: column;
-}
-
-.chap-li {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; /* Align li elements to the center horizontally */
+  }
+  
+  .chap-li {
     padding: 10px;
+    width: 20%;
     border: 2px solid var(--secondary-color);
-    margin: 5px 20px;
+    margin: 5px 10px;
     border-radius: 3px;
     color: white;
-}
+  }
+  
 
 .chap-li:hover {
-    text-decoration: underline;
     cursor: pointer;
     background-color: rgba(28, 75, 130,0.3);
 
@@ -270,10 +268,12 @@ th{
 }
 
 .chapter-modal{
+    margin-top: 10px;
     background-color: var(--secondary-color);    
-    width: 95vmax;
-    height: 95vmax;
+    width: 75vmax;
+    height: 75vmax;
     border:none;
+    border-radius: 5px;
     color: white;
     font-size: 1.2em;
     font-family: 'Times New Roman', Times, serif    ;
@@ -292,7 +292,7 @@ th{
     top: 5vh;
     width: fit-content;
     text-align: center;
-    right: 5vmax;
+    right: 12vmax;
     color: black;
     background-color: none;
     border:none;
@@ -310,11 +310,11 @@ th{
 }
 
 .previous{
-    left: 10vh;
+    left: 30vh;
 }
 
 .next{
-    right: 10vh;
+    right: 30vh;
 }
 
 /*dialog styling*/
@@ -339,6 +339,11 @@ dialog::backdrop {
 dialog[open]::backdrop {
     animation: show-backdrop 0.5s ease 0.2s normal;
 }
+
+dialog[close]{
+    animation: hide-backdrop 0.5s ease 0.2s normal;
+}
+
 dialog.hide::backdrop {
     animation: hide-backdrop 0.5s ease 0.2s normal;
 }
@@ -369,24 +374,24 @@ dialog.hide::backdrop {
 }
 @keyframes hide-backdrop{
     to {
-        opacity: 0;
+        transform: (translateY(200%));
     }
 }
 
-/*scrollbar*/
-/* width */
-::scrollbar {
-    width: 20px;
+/* For WebKit based browsers (e.g., Chrome, Safari) */
+::-webkit-scrollbar {
+    width: 12px;
   }
   
-  /* Track */
-  ::scrollbar-track {
-    box-shadow: inset 0 0 5px grey;
-    border-radius: 10px;
+  ::-webkit-scrollbar-track {
+    background-color: none;
   }
   
-  /* Handle */
-  ::scrollbar-thumb {
-    background: red;
-    border-radius: 10px;
+  ::-webkit-scrollbar-thumb {
+    background-color: var(--primary-color);
+    border-radius: 6px;
   }
+  
+  
+
+  

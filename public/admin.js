@@ -35,6 +35,7 @@ function getUsers() {
             const userEntries = Object.values(usersObj);
             userDataObj = {};
             // Create a new <tbody> element
+            
             var tbody = document.getElementById('tbody');
             tbody.innerHTML = ""
 

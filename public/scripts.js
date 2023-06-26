@@ -147,6 +147,7 @@ function displayChapterList() {
         isVerified = snapshot.val()
         if (isVerified) {
             chapterList.style.display = "flex"
+            document.getElementById("gallery").style.display = 'none    '
         }
     })
 
