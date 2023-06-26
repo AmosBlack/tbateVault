@@ -27,6 +27,7 @@ exitAdmin.addEventListener("click", () => {
 
 })
 
+//get list of all users
 function getUsers() {
     DB.ref("users/").once("value")
         .then((snapshot) => {

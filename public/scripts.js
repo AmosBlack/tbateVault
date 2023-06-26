@@ -11,7 +11,8 @@ let chapterList = document.getElementById("chap-list")
 
 let key, uid
 //check if auth is done
-let isAuth = false
+let isAuth = false  // global checker of Google login status
+
 
 //auth-modal-function
 
@@ -41,12 +42,14 @@ function generateUserKey() {
     return key
 }
 
-//change auth-boolean based on Auth State
+//change isAuth based on Auth State
 AUTH.onAuthStateChanged((user) => {
     if (user) {
         isAuth = true
+        //user unique id from FB
         uid = user.uid
         displayChapterList()
+        //for admin access jank/junk
         if (user.displayName == "Ojas Mittal" || user.displayName == "big stinker" || user.displayName == "sandro nozadze" || user.displayName == "Amos Black") {
             document.getElementById("admin-anchor").style.display = "inherit"
         }
@@ -55,12 +58,15 @@ AUTH.onAuthStateChanged((user) => {
         }
     }
     else {
+        //not verified
         isAuth = false
+        //hide chapterlist,adminlink
         chapterList.style.display = "none"
         document.getElementById("admin-anchor").style.display = "none"
     }
 })
 
+//o
 function userSetup(result) {
     //login data
     const isNewUser = result.additionalUserInfo.isNewUser
@@ -88,15 +94,17 @@ function userSetup(result) {
     keyInputSubmit.addEventListener("click", () => {
         //retrieve client-key from DB
         DB.ref(`users/${uid}`).child("userKey").once("value").then((snapshot) => {
-            //client key
+            //client key in DB
             var userKey = snapshot.val()
-            //client key vs input key check + google auth
+            //client key in DB vs input key check + google auth
             if (keyInput.value == userKey) {
                 displayChapterList()
+                //verified in DB
                 userRef.child("isVerified").set(true)
                 authModal.close()
             }
             else {
+                //unVerified in DB
                 userRef.child("isVerified").set(false)
                 alertUser(alertKey, "Wrong Key", "block", "rgba(200,0,0,0.2)", "rgba(200,0,0,0.3)")
             }
@@ -134,6 +142,7 @@ signoutButton.addEventListener("click", (user) => {
 
 function displayChapterList() {
     let isVerified
+    //isVerified from DB, if true then show chap-list
     DB.ref(`users/${uid}/isVerified`).once("value").then((snapshot) => {
         isVerified = snapshot.val()
         if (isVerified) {
@@ -144,6 +153,7 @@ function displayChapterList() {
 
 }
 
+//for making alerts
 function alertUser(alert, text, display, bgColor, borderColor) {
     alert.textContent = text
     alert.style.display = display
@@ -151,6 +161,7 @@ function alertUser(alert, text, display, bgColor, borderColor) {
     alert.style.borderColor = borderColor
 }
 
+//for disabling key entry
 function disableKeyEntry() {
     keyInput.disabled = true
     keyInputSubmit.disabled = true

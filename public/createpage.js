@@ -1,6 +1,21 @@
+// chapters-list in html
+let chaptersList = document.getElementById("chap-list")
 
-//chapters-list in html
-let chaptersCollection = document.getElementsByClassName("chap-li")
+let chaptersCollection
+
+async function initializeChapterList() {
+  await chapterListSetup();
+  chaptersCollection = document.getElementsByClassName('chap-li')
+  //for each chap-li, on-click create chapter modal
+  Array.from(chaptersCollection).forEach((element, index) => {
+    element.addEventListener("click", () => {
+      var chapterNumber = index + 1
+      createChapterModal(chapterNumber);
+    });
+  });
+}
+
+initializeChapterList();
 
 //when chap-li clicked, create modal
 function createChapterModal(chapNumber) {
@@ -35,35 +50,39 @@ function createChapterModal(chapNumber) {
         chapterModal.remove()
       });
       chapterModal.appendChild(chapterClose);
+      //parent of nav buttons
+      var chapterNav = document.createElement("div")
+      chapterNav.style.backgroundColor = "rgb(0,0,0)"
       //go to previous chapter
       var chapterPrevious = document.createElement("button");
       chapterPrevious.classList.add("button")
       chapterPrevious.classList.add("previous")
       chapterPrevious.textContent = "Previous";
       //hardcoded length- to fix
-      if(chapNumber <= 1){
+      if (chapNumber <= 1) {
         chapterPrevious.style.display = "none"
       }
       chapterPrevious.addEventListener("click", function () {
-          createChapterModal(chapNumber-1)
-          chapterModal.remove()
+        createChapterModal(chapNumber - 1)
+        chapterModal.remove()
       });
-      chapterModal.appendChild(chapterPrevious);
+      chapterNav.appendChild(chapterPrevious);
       //next chapter button
       var chapterNext = document.createElement("button");
       chapterNext.classList.add("button")
       chapterNext.classList.add("next")
       chapterNext.textContent = "Next";
       //current hardcoded length- to fix
-      if(chapNumber>=7){
+      if (chapNumber >= 7) {
         chapterNext.style.display = "None"
       }
       //go to next chapter
       chapterNext.addEventListener("click", function () {
-        createChapterModal(chapNumber+1)
+        createChapterModal(chapNumber + 1)
         chapterModal.remove()
       });
-      chapterModal.appendChild(chapterNext);
+      chapterNav.appendChild(chapterNext);
+      chapterModal.appendChild(chapterNav)
       //append modal to body
       document.body.appendChild(chapterModal)
       //open modal
@@ -74,12 +93,25 @@ function createChapterModal(chapNumber) {
     });
 }
 
-//for each chap-li, on-click create chapter modal
-Array.from(chaptersCollection).forEach((element, index) => {
-  element.addEventListener("click", () => {
-    var chapterNumber = index+1
-    createChapterModal(chapterNumber);
+async function chapterListSetup() {
+  return new Promise((resolve, reject) => {
+    firebase.database().ref('chapters-count').once("value")
+      .then((snapshot) => {
+        // <li class="chap-li"><a class="chap-a">Chapter 1 - xxxxx</a></li>
+        for (var i = 0; i < snapshot.val(); i++) {
+          var li = document.createElement("li")
+          li.classList.add('chap-li')
+          var a = document.createElement('a')
+          a.classList.add("chap-a")
+          a.innerHTML = `Chapter ${i}`
+          li.appendChild(a)
+          chaptersList.appendChild(li)
+        }
+        resolve();
+      })
+      .catch((error) => {
+        console.log("Error retrieving chapter list from Firebase:", error);
+        reject(error);
+      });
   });
-});
-
-
+}

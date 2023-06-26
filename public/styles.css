@@ -271,11 +271,12 @@ th{
 
 .chapter-modal{
     background-color: var(--secondary-color);    
-    width: 75vmax;
-    height: 75vmax;
+    width: 95vmax;
+    height: 95vmax;
     border:none;
     color: white;
-    font-size: 0.8em;
+    font-size: 1.2em;
+    font-family: 'Times New Roman', Times, serif    ;
 }
 .chapter-modal h1{
     font-family: 'Ubuntu';
