@@ -2,7 +2,7 @@
 
 :root {
     --primary-color: #2A2F4F;
-    --secondary-color: #10175a;
+    --secondary-color: #24105a;
     --accent-color: rgb(221, 107, 77);
     --background-color: #e2e0d6;
 }
@@ -28,7 +28,6 @@ body::before {
     width: 100%;
     height: 100%;
     background-size: cover;
-    background-repeat: no-repeat;
     background-image: url('https://images-ext-1.discordapp.net/external/-U4Dv5nxTOcvudxTRA2BtIBAdLT4oSg7FVxWW6e4O5k/https/astolfo.wants-to-cum-in.me/content/cdn/vESNyWrcvDPx/3eilwb.png?width=939&height=529');   
      opacity: 0.5; /* Adjust the opacity value for the body */
 }
@@ -298,8 +297,8 @@ th{
     border:none;
     border-radius: 5px;
     color: white;
-    font-size: 1.2em;
-    font-family: 'Times New Roman', Times, serif    ;
+    font-size: 1em;
+    font-family: 'Times New Roman', Times, serif;
 }
 .chapter-modal h1{
     font-family: 'Ubuntu';
@@ -414,10 +413,10 @@ dialog.hide::backdrop {
     background-color: var(--primary-color);
     border-radius: 6px;
   }
-  /* Funky loading animation */
-@keyframes bounce {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-80px); }
+/* Circle loading animation */
+@keyframes rotate {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
   }
   
   #loading-overlay {
@@ -426,7 +425,8 @@ dialog.hide::backdrop {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: #362d61;
+    margin: 0;
+    background-color: #4a2e8d;
     z-index: 9999;
     display: flex;
     align-items: center;
@@ -435,14 +435,23 @@ dialog.hide::backdrop {
     transition: opacity 0.5s ease-in-out;
   }
   
-  .ball {
+  .circle {
     position: relative;
-    width: 50px;
-    height: 50px;
+    width: 80px;
+    height: 80px;
+  }
+  
+  .circle:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 80px;
+    height: 80px;
+    border: 4px solid rgb(228, 226, 226);
+    border-top-color: transparent;
     border-radius: 50%;
-    background-color: #ffffff;
-    animation: bounce 1s infinite ease-in-out;
-    animation-delay: 0.2s;
+    animation: rotate 1s linear infinite;
   }
   
   .fade-out {
@@ -451,3 +460,50 @@ dialog.hide::backdrop {
     transition: opacity 0.5s ease-in-out;
   }
   
+
+  .container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border: 2px solid white;
+  }
+  
+  .label {
+    color: var(--primary-color);
+    font-size: 1em;
+  }
+  
+  input[type="radio"] {
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 2px solid var(--primary-color);
+    outline: none;
+    transition: border-color 0.3s ease-in-out;
+    cursor: pointer;
+  }
+  
+  input[type="radio"]:checked {
+    border-color: var(--accent-color);
+  }
+  
+  input[type="radio"] + label {
+    font-size: inherit;
+    cursor: pointer;
+  }
+  
+  input[type="radio"] + label::before {
+    content: '';
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: var(--secondary-color);
+    margin-right: 5px;
+  }
+  
+  input[type="radio"]:checked + label::before {
+    background-color: var(--accent-color);
+    fill: #1f2064;
+  }

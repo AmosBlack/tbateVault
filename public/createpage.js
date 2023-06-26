@@ -35,9 +35,11 @@ function createChapterModal(chapNumber) {
       var chapterTitle = document.createElement("h1");
       chapterTitle.textContent = `Chapter ${chapNumber}`;
       chapterModal.appendChild(chapterTitle);
+
       //paragraph el containing text
       var chapterContent = document.createElement("p");
       chapterContent.innerHTML = chapterText;
+      chapterContent.id = "chapter-content"
       chapterModal.appendChild(chapterContent);
       //close modal
       var chapterClose = document.createElement("button");
@@ -96,7 +98,7 @@ function createChapterModal(chapNumber) {
 async function chapterListSetup() {
   return new Promise((resolve, reject) => {
     //get num of chapters from db
-    firebase.database().ref('chapters-count').once("value") 
+    firebase.database().ref('chapters-count').once("value")
       .then((snapshot) => {
         chapterCount = snapshot.val()
         chaptersList.innerHTML = ""
@@ -107,7 +109,7 @@ async function chapterListSetup() {
           li.classList.add('chap-li')
           var a = document.createElement('a')
           a.classList.add("chap-a")
-          a.innerHTML = `Chapter ${i+1}`
+          a.innerHTML = `Chapter ${i + 1}`
           li.appendChild(a)
           chaptersList.appendChild(li)
         }

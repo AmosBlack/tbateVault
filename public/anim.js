@@ -1,4 +1,5 @@
-// Run the funky loading animation until the page completely loads
+
+// Run the circle loading animation until the page completely loads
 window.addEventListener('load', function () {
     const loadingOverlay = document.getElementById('loading-overlay');
     loadingOverlay.classList.add('fade-out');
@@ -8,5 +9,5 @@ window.addEventListener('load', function () {
   setTimeout(function () {
     const loadingOverlay = document.getElementById('loading-overlay');
     loadingOverlay.style.display = 'none';
-  }, 1500);
+  }, 1200);
   
