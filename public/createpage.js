@@ -35,12 +35,18 @@ function createChapterModal(chapNumber) {
       var chapterTitle = document.createElement("h1");
       chapterTitle.textContent = `Chapter ${chapNumber}`;
       chapterModal.appendChild(chapterTitle);
+      //font button
+      var fontButton = document.createElement("button")
+      fontButton.classList.add("button")
+      fontButton.innerHTML = "Aa"
+      chapterModal.appendChild(fontButton)
 
       //paragraph el containing text
       var chapterContent = document.createElement("p");
       chapterContent.innerHTML = chapterText;
       chapterContent.id = "chapter-content"
       chapterModal.appendChild(chapterContent);
+
       //close modal
       var chapterClose = document.createElement("button");
       chapterClose.classList.add("button")
@@ -89,6 +95,22 @@ function createChapterModal(chapNumber) {
       document.body.appendChild(chapterModal)
       //open modal
       chapterModal.showModal();
+      //font-size editing event
+      fontButton.addEventListener("click",()=>{
+        val = {
+          "a":"1em",
+          "A":"1.2em",
+          "Aa":"1.4em"
+        }
+        chapterContent.style.fontSize = val[fontButton.innerHTML]
+        var currentIndex = Object.keys(val).indexOf(fontButton.innerHTML)
+        if(currentIndex+1 >= Object.keys(val).length){
+          currentIndex = -1
+        }
+        fontButton.innerHTML = Object.keys(val)[currentIndex+1]
+        
+       
+      })
     })
     .catch((error) => {
       console.log("Error retrieving chapter from Firebase:", error);

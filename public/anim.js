@@ -9,5 +9,5 @@ window.addEventListener('load', function () {
   setTimeout(function () {
     const loadingOverlay = document.getElementById('loading-overlay');
     loadingOverlay.style.display = 'none';
-  }, 1200);
+  }, 2000);
   
