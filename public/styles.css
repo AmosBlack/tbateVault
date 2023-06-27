@@ -57,13 +57,12 @@ nav {
 }
 
 .content {
-    background-color: var(--primary-color);
+    background-color:#371b85 ;
     border-radius: 3px;
     margin: 0 auto;
     display: flex;
-    flex-direction: column;
     margin-top: 20px;
-    width: 70vmax;
+    width: 70%;
 }
 #chap-list {
     list-style: none;
@@ -311,10 +310,10 @@ th{
 
 .cross{
     position: fixed;
-    top: 5vh;
+    top: 5%;
     width: fit-content;
     text-align: center;
-    right: 12vmax;
+    right: 12%;
     color: black;
     background-color: none;
     border:none;
@@ -328,15 +327,15 @@ th{
 
 .previous, .next {
     position: fixed;
-    top: 93vh;
+    top: 90%;
 }
 
 .previous{
-    left: 30vh;
+    left: 0;
 }
 
 .next{
-    right: 30vh;
+    left: 60%;
 }
 
 /*dialog styling*/
